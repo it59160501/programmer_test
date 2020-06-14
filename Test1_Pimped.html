@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style> 
+            input[type=text], select {
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            button {
+                font-size: large;
+                width: 100%;
+                background-color: #4CAF50;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            div.center{
+                margin: auto;
+                width: 60%;
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                padding: 20px;
+            }
+            .resultArea {
+                margin: auto;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+                padding: 10px;
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="center">
+            <form id="form" action="">
+                <label for="list">List</label>
+                <input type="text" name="list">
+                <label for="search">Search</label>
+                <input type="text" name="search">
+                <label for="type">ประเภทการค้นหา</label>
+                <select name="type">
+                    <option value="linearSearch">Linear Search</option>
+                    <option value="binarySearch">Binary Search</option>
+                    <option value="bubbleSearch">Bubble Search</option>
+                </select>
+            </form>
+            <button onclick="myFunction()">Search</button>
+            <br><br>
+            <label for="fname">ผลลัพธ์</label>
+            <div class="resultArea">
+                <p id="result"></p>
+            </div>
+        </div>
+    <script>
+        function myFunction() {
+            var temp = document.getElementById("form").elements[0].value;
+            var list = temp.split(",");
+            var search = document.getElementById("form").elements[1].value;
+            var option = document.getElementById("form").elements[2].value;
+
+            var text = "<center>List : [" + list + "]" + "<br>";
+            text += "Search : " + search + "<br>";
+            text += "Result :::<br>";
+
+            if(option == "linearSearch"){
+                text += linearSearch(list,search);
+            }else if(option == "binarySearch"){
+                text += binarySearch(list,search);
+            }else if(option == "bubbleSearch"){
+                text += bubbleSearch(list,search);
+            }
+            document.getElementById("result").innerHTML = text + "</center>";
+        }
+        function linearSearch(list,search){
+            var text = "";
+            for (let index = 0; index < list.length; index++) {
+                if(list[index] !== search){
+                    text += "Round : " + (index+1) + " ===> " + search + " != " + list[index] + "<br>";
+                }
+                else if(list[index] == search){
+                    return text + "Round : " + (index+1) + " ===> " + search + " = " + list[index] + " found !!<br>";
+                }
+            }
+            return text + "Not Found !!";
+        }
+        function binarySearch(list,search){
+            list.sort();
+            var text = "";
+            let round = 1;
+            let first = 0;
+            let last = list.length - 1;
+            let previousMiddle;
+            while (first < list.length && last > -1) {
+                let middle = Math.floor((first + last)/2);
+                if( list[middle] === search ){
+                    return text + "Round : " + round + " ===> " + search + " = " + list[middle] + " found !!<br>";
+                }else if(list[middle] < search){
+                    text += "Round : " + round + " ===> " + search + " != " + list[middle] + "<br>";
+                    first = middle + 1;
+                }
+                else{
+                    text += "Round : " + round + " ===> " + search + " != " + list[middle] + "<br>";
+                    last = middle - 1; 
+                }
+                round += 1;
+            }
+            return text + "Not Found !!";
+        }
+        function bubbleSearch(list,search){
+
+        }
+    </script>
+
+    </body>
+</html>
