@@ -117,7 +117,17 @@
             return text + "Not Found !!";
         }
         function bubbleSearch(list,search){
+            var text = "";
 
+            for (let index = 0; index < list.length-1 ; index++) {
+                if(list[index] !== search || list[index+1] !== search){
+                    text += "Round : " + (index+1) + " ===> " + search + " != " + list[index] + "<br>";
+                }
+                else if(list[index] == search || list[index+1] == search){
+                    return text + "Round : " + (index+1) + " ===> " + search + " = " + (list[index] == search? list[index] : list[index+1]) + " found !!<br>";
+                }
+            }
+            return text + "Not Found !!";
         }
     </script>
 
